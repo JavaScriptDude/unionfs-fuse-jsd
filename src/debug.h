@@ -27,6 +27,15 @@
 		errno = _errno; \
 	} while (0)
 
+
+#define COWLOG(event, path, nbranch_ro, nbranch_rw) \
+	do { \
+		if (!uopt.cowlog) break; \
+		fprintf(stderr, "\nCOWLOG: {\"event\": \"%s\", \"path\": \"%s\", \"path_ro\": \"%s\", \"path_rw\": \"%s\"}", event, path, uopt.branches[nbranch_ro].path, uopt.branches[nbranch_rw].path); \
+		fflush(stderr); \
+	} while (0)
+
+
 #define RETURN(returncode) \
 	do { \
 		if (uopt.debug) DBG("return %d\n", returncode); \

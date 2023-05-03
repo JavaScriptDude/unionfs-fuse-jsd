@@ -398,6 +398,13 @@ int unionfs_opt_proc(void *data, const char *arg, int key, struct fuse_args *out
 		case KEY_DIRECT_IO:
 			uopt.direct_io = true;
 			return 0;
+		case KEY_COWLOG:
+			printf("dfs cowlog enabled\n");
+			uopt.cowlog = true;
+			return 0;
+		case NO_RO_MV_DEL:
+			uopt.no_ro_mv_del = true;
+			return 0;
 		case KEY_VERSION:
 			printf("unionfs-fuse version: "VERSION"\n");
 #ifdef HAVE_XATTR

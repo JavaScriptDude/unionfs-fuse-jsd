@@ -89,6 +89,10 @@ int unionfs_rmdir(const char *path) {
 
 	if (dir_not_empty(path)) return -ENOTEMPTY;
 
+	if (uopt.no_ro_mv_del) {
+		if(find_ro_branch(path) > 0) RETURN(-EACCES);
+	}
+
 	int i = find_rorw_branch(path);
 	if (i == -1) return -errno;
 

@@ -32,6 +32,8 @@ typedef struct {
 	bool hide_meta_files;
 	bool relaxed_permissions;
 	bool direct_io;
+	bool cowlog;
+	bool no_ro_mv_del;
 
 } uopt_t;
 
@@ -49,6 +51,8 @@ enum {
 	KEY_RELAXED_PERMISSIONS,
 	KEY_STATFS_OMIT_RO,
 	KEY_DIRECT_IO,
+	KEY_COWLOG,
+	NO_RO_MV_DEL,
 	KEY_VERSION,
 };
 

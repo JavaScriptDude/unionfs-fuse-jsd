@@ -88,6 +88,22 @@ By default, blocks of all branches are counted in statfs() calls
 from the summary of blocks. This may sound weird, but it actually fixes
 "wrong" percentage of free space.
 .TP
+\fB\--cowlog
+Use in foreground mode (-f). Will output json formatted output for each cow operation
+COW events include: copy_file, copy_link, copy_directory, path_create_cow, copy_special, copy_fifo
+This can be useful for wrapping unionfs in a wrapper such as python
+Eg. COWLOG: {"event": "copy_file", "path": "/f2", "path_ro": "/home/foo/svc/trunk/MyTool/", "path_rw": "/home/foo/svc/devz/my_cr/app/MyTool/"}
+.TP
+\fB\--no_ro_mv_del
+Block moves or deletes of sources that are in RO sources. 
+If source is in RW branch, it will create a copy and leave original RO as-is.
+.TP
+\fB\-o statfs_omit_ro
+By default, blocks of all branches are counted in statfs() calls
+(e.g. by 'df'). With this option, read-only branches will be omitted
+from the summary of blocks. This may sound weird, but it actually fixes
+"wrong" percentage of free space.
+.TP
 .SH "Options to libfuse"
 There are several further options available, which don't directly apply to
 unionfs, but to libfuse. Please run

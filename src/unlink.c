@@ -75,6 +75,10 @@ static int unlink_rw(const char *path, int branch_rw) {
 int unionfs_unlink(const char *path) {
 	DBG("%s\n", path);
 
+	if (uopt.no_ro_mv_del) {
+		if(find_ro_branch(path) > 0) RETURN(-EACCES);
+	}
+
 	int i = find_rorw_branch(path);
 	if (i == -1) RETURN(errno);
 

@@ -524,6 +524,10 @@ static int unionfs_rename(const char *from, const char *to, unsigned int flags) 
 		}
 	}
 
+	if (uopt.no_ro_mv_del) {
+		if(find_ro_branch(from) > 0) RETURN(-EACCES);
+	}
+	
 	if (!uopt.branches[i].rw) {
 		i = find_rw_branch_cow_common(from, true);
 		if (i == -1) RETURN(-errno);

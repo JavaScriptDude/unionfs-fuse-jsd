@@ -91,26 +91,32 @@ int cow_cp(const char *path, int branch_ro, int branch_rw, bool copy_dir) {
 
 	switch (buf.st_mode & S_IFMT) {
 		case S_IFLNK:
+			COWLOG("copy_link", path, branch_ro, branch_rw);
 			res = copy_link(&cow);
 			break;
 		case S_IFDIR:
 			if (copy_dir) {
+				COWLOG("copy_directory", path, branch_ro, branch_rw);
 				res = copy_directory(path, branch_ro, branch_rw);
 			} else {
+				COWLOG("path_create_cow", path, branch_ro, branch_rw);
 				res = path_create_cow(path, branch_ro, branch_rw);
 			}
 			break;
 		case S_IFBLK:
 		case S_IFCHR:
+			COWLOG("copy_special", path, branch_ro, branch_rw);
 			res = copy_special(&cow);
 			break;
 		case S_IFIFO:
+			COWLOG("copy_fifo", path, branch_ro, branch_rw);
 			res = copy_fifo(&cow);
 			break;
 		case S_IFSOCK:
 			USYSLOG(LOG_WARNING, "COW of sockets not supported: %s\n", cow.from_path);
 			RETURN(1);
 		default:
+			COWLOG("copy_file", path, branch_ro, branch_rw);
 			res = copy_file(&cow);
 	}
 
