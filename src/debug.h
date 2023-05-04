@@ -31,8 +31,8 @@
 #define COWLOG(event, path, nbranch_ro, nbranch_rw) \
 	do { \
 		if (!uopt.cowlog) break; \
-		fprintf(stderr, "\nCOWLOG: {\"event\": \"%s\", \"path\": \"%s\", \"path_ro\": \"%s\", \"path_rw\": \"%s\"}", event, path, uopt.branches[nbranch_ro].path, uopt.branches[nbranch_rw].path); \
-		fflush(stderr); \
+		fprintf(stdout, "COWLOG: {\"event\": \"%s\", \"path\": \"%s\", \"path_ro\": \"%s\", \"path_rw\": \"%s\"}\n", event, path, uopt.branches[nbranch_ro].path, uopt.branches[nbranch_rw].path); \
+		fflush(stdout); \
 	} while (0)
 
 
