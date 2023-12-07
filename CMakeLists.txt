@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 
-project(unionfs-fuse VERSION 3.3
+project(unionfs-fuse VERSION 3.4
                      DESCRIPTION "user-space implementation of union filesystem (with help of fuse)"
                      LANGUAGES C)
 
@@ -32,6 +32,7 @@ ELSE (WITH_XATTR)
 ENDIF (WITH_XATTR)
 
 if (UNIX AND APPLE)
+	option(WITH_LIBFUSE3 "Enable LibFUSE3 support" FALSE)  # supposedly macfuse (osxfuse?) still uses fuse2 api so let's make that a default for apple
 	find_library(MACFUSE_PATH fuse HINTS /usr/local/lib)
 	get_filename_component(MACFUSE_DIRECTORY ${MACFUSE_PATH} DIRECTORY)
 	link_directories(${MACFUSE_DIRECTORY})
